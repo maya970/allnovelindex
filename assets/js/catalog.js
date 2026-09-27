@@ -49,9 +49,9 @@
 
   function failHint() {
     if (isFileProtocol()) {
-      return "书目无法在本地双击打开。请用 python -m http.server 预览，或把仓库推到 GitHub 后用免费 Vercel 打开网站地址。";
+      return "请用浏览器打开网站地址，不要直接打开本地文件。";
     }
-    return "书目索引加载失败。确认 data/manifest.json 已上传到 GitHub / Vercel，然后用网站地址打开，不要双击 html。";
+    return "书目暂时打不开，请稍后再试。";
   }
 
   function setStatus(text) {
@@ -149,7 +149,7 @@
       state.all = [];
       return Promise.resolve(state.all);
     }
-    setStatus("正在载入 " + files.length + " 个书目文件…");
+    setStatus("正在载入书目…");
     var done = 0;
     return Promise.all(
       files.map(function (file) {
@@ -261,12 +261,12 @@
             encodeURIComponent("男频") +
             '"><span class="dl-kicker">CHANNEL · MALE</span><h2>男频</h2><p class="dl-gate-count">' +
             male.toLocaleString("zh-CN") +
-            ' 本</p><p>玄幻、仙侠、科幻、都市、历史。点进去再选分类，每次只加载这一类。</p></a>' +
+            ' 本</p><p>玄幻、仙侠、科幻、都市、历史。</p></a>' +
             '<a class="dl-gate dl-gate-female" href="catalog.html?group=' +
             encodeURIComponent("女频") +
             '"><span class="dl-kicker">CHANNEL · FEMALE</span><h2>女频</h2><p class="dl-gate-count">' +
             female.toLocaleString("zh-CN") +
-            ' 本</p><p>穿越、言情、耽美、衍生同人。能确定的女频都在这边。</p></a>';
+            ' 本</p><p>穿越、言情、耽美、衍生同人。</p></a>';
         }
         if (grid) {
           var html = "";
@@ -369,11 +369,6 @@
     var introBlock = intro
       ? '<p class="dl-intro">' + escapeHtml(intro) + "</p>"
       : '<p class="dl-intro is-empty">暂无简介</p>';
-    var link = b.link
-      ? '<a class="dl-book-link" href="' +
-        escapeHtml(b.link) +
-        '" target="_blank" rel="noopener">优书网</a>'
-      : "";
     var words = num(b.words) ? Math.round(num(b.words) / 10000) + " 万字" : "";
     var bits = [
       escapeHtml(b.title || ""),
@@ -387,7 +382,6 @@
       '<article class="dl-card">' +
       '<p class="dl-book-line">' +
       bits.join(" · ") +
-      (link ? " · " + link : "") +
       "</p>" +
       introBlock +
       "</article>"
@@ -451,7 +445,7 @@
       state.all = [];
       state.filtered = [];
       setPickerVisible(true, group);
-      setStatus("先选一个分类。免费托管每次只加载这一类，避免一次拉几千个文件。");
+      setStatus("请先选择一个分类。");
       var box = qs("#bookCards");
       if (box) box.innerHTML = "";
       return Promise.resolve();

@@ -932,12 +932,6 @@ body.dl-nav-open .dl-backdrop {
   word-break: break-word;
 }
 
-.dl-book-line .dl-book-link {
-  margin: 0;
-  align-self: auto;
-  display: inline;
-}
-
 .dl-meta {
   margin: 0;
   color: var(--dl-muted);
@@ -958,13 +952,6 @@ body.dl-nav-open .dl-backdrop {
 .dl-intro.is-empty {
   opacity: 0.45;
   font-style: italic;
-}
-
-.dl-book-link {
-  margin-top: 12px;
-  align-self: flex-start;
-  font-size: 12px;
-  letter-spacing: 0.12em;
 }
 
 .dl-empty {
